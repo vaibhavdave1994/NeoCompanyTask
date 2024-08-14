@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
  @Entity(tableName = "Fruit")
  data class FruitModel (
   @ColumnInfo("fruitName") var fruitName: String? = null,
-  @ColumnInfo("whatis") var whatis: String? = null,
+  @ColumnInfo("whatIs") var whatIs: String? = null,
 ){
   @PrimaryKey(autoGenerate = true)var id=0
 

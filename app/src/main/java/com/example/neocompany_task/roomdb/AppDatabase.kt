@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.example.neocompany_task.ui.data.model.FruitModel
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [FruitModel::class],
 )
 abstract class AppDatabase :RoomDatabase(){

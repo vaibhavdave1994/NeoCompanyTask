@@ -11,8 +11,6 @@ import com.example.neocompany_task.ui.data.model.FruitModel
 
 @Dao
 interface FruitDao {
-
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(list: MutableList<FruitModel>)
 

@@ -22,7 +22,7 @@ object DBModule {
     @Singleton
     fun providesAlertDatabase(@ApplicationContext context: Context): AppDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, "AlertDatabase")
-            .allowMainThreadQueries().build()
+            .allowMainThreadQueries().fallbackToDestructiveMigration().build()
 
     @Provides
     fun providesUserRepository(userDao: FruitDao): FruitDBRepository =

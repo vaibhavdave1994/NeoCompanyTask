@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="clickListener"
             type="android.view.View.OnClickListener" />
@@ -62,7 +61,7 @@
 
                     <!-- First Name Field -->
                     <TextView
-                        android:id="@+id/textViewFirstName"
+                        android:id="@+id/textViewFruitName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{model.fruitName}"
@@ -71,30 +70,16 @@
 
                     <!-- Last Name Field -->
                     <TextView
-                        android:id="@+id/textViewphone"
+                        android:id="@+id/textViewWhatIs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:drawablePadding="10dp"
-                        android:text="@{model.whatis}"
+                        android:text="@{model.whatIs}"
                         android:textColor="@android:color/black"
                         android:textSize="14sp" />
 
                 </LinearLayout>
-
-                <!-- Email Field -->
-                <TextView
-                    android:id="@+id/textViewEmail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Email"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewAvatar"
-                    app:layout_constraintTop_toBottomOf="@+id/layoutName" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

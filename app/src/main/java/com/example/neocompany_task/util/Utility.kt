@@ -5,6 +5,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
+import com.example.neocompany_task.databinding.DesignBottomSheetBinding
+import com.example.neocompany_task.ui.data.model.FruitModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -13,39 +15,66 @@ import java.io.IOException
 class Utility {
 
     companion object {
+        const val TAG = "ModalBottomSheetDialog"
+        lateinit var fruitList: MutableList<FruitModel>
 
-        fun saveImageToInternalStorage(bitmap: Bitmap, context: Context): String {
-            val fileName = "${System.currentTimeMillis()}.png"
-            val file = File(context.filesDir, fileName)
-            try {
-                val fos = FileOutputStream(file)
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
-                fos.close()
-            } catch (e: IOException) {
-                Log.e("errorimage",e.message.toString())
-                e.printStackTrace()
+        fun countListChar(fruitListData:List<FruitModel>,binding: DesignBottomSheetBinding) {
+            // Sample ArrayList
+            var list = ArrayList<String>()
+            for (i in fruitListData.indices) {
+                fruitListData[i].fruitName?.let { list.add(it) }
             }
-            return file.absolutePath
+            // MutableMap to store counts of first characters
+            val firstCharCount = mutableMapOf<Char, Int>()
+
+            // Iterate through the list and count first characters
+
+            for (s in list) {
+                if (s.isNotEmpty()) {
+                    val firstChar = s[0]
+                    firstCharCount[firstChar] = firstCharCount.getOrDefault(firstChar, 0) + 1
+                }
+            }
+
+
+            // Print the result
+            val builder = StringBuilder()
+            for ((char, count) in firstCharCount) {
+                builder.append("Character: $char, Count: $count\n");
+                println("Character: $char, Count: $count")
+            }
+            binding.textShare.text = builder.toString()
+
         }
 
-        // Save the image path to the database
+        fun setDataList(){
+            fruitList = ArrayList<FruitModel>()
+            fruitList.add(FruitModel("Apple", "Fruit"))
+            fruitList.add(FruitModel("Avocados", "Fruit"))
+            fruitList.add(FruitModel("Apricot", "Fruit"))
+            fruitList.add(FruitModel("Banana", "Fruit"))
+            fruitList.add(FruitModel("Blueberries", "Fruit"))
+            fruitList.add(FruitModel("Cherry", "Fruit"))
+            fruitList.add(FruitModel("Cantaloupe", "Fruit"))
+            fruitList.add(FruitModel("Clementine", "Fruit"))
+            fruitList.add(FruitModel("Cucumbers", "Fruit"))
+            fruitList.add(FruitModel("Dewberries", "Fruit"))
+            fruitList.add(FruitModel("Dragon", "Fruit"))
+            fruitList.add(FruitModel("Elderberry", "Fruit"))
+            fruitList.add(FruitModel("Evergreen", "Fruit"))
+            fruitList.add(FruitModel("Imbe", "Fruit"))
+            fruitList.add(FruitModel("Indian Fig", "Fruit"))
+            fruitList.add(FruitModel("Jackfruit", "Fruit"))
+            fruitList.add(FruitModel("Jambolan", "Fruit"))
+            fruitList.add(FruitModel("Kiwi", "Fruit"))
+            fruitList.add(FruitModel("Lime", "Fruit"))
+            fruitList.add(FruitModel("Longan", "Fruit"))
+            fruitList.add(FruitModel("Mango", "Fruit"))
+            fruitList.add(FruitModel("Mandarin", "Fruit"))
+            fruitList.add(FruitModel("Orange", "Fruit"))
+            fruitList.add(FruitModel("Mulberry", "Fruit"))
+            fruitList.add(FruitModel("Melon", "Fruit"))
 
-        // Retrieve the image from the path
-        fun loadImageFromPath(imagePath: String): Bitmap? {
-            return BitmapFactory.decodeFile(imagePath)
-        }
-
-        fun bitmapToBase64(bitmap: Bitmap): String {
-            val byteArrayOutputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-            val byteArray = byteArrayOutputStream.toByteArray()
-            return Base64.encodeToString(byteArray, Base64.DEFAULT)
-        }
-
-        // Convert Base64 string to Bitmap
-        fun base64ToBitmap(base64Str: String): Bitmap {
-            val decodedBytes = Base64.decode(base64Str, Base64.DEFAULT)
-            return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
         }
 
     }

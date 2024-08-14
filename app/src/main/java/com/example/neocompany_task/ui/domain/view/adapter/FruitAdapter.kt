@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.neocompany_task.databinding.FruitItemBinding
@@ -69,6 +68,4 @@ class ViewHolder(private val binding: FruitItemBinding) : RecyclerView.ViewHolde
 }
 
 
-interface CustomerClickListener {
-    fun clickOnItem(data: FruitModel, card: View)
-}
+
