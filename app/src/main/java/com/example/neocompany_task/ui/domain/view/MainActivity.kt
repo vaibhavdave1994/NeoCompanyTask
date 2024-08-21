@@ -1,32 +1,70 @@
 package com.example.neocompany_task.ui.domain.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.widget.SearchView
+import android.provider.Settings.Global
+import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
-import com.example.neocompany_task.R
-import com.example.neocompany_task.core.BaseActivity
-import com.example.neocompany_task.databinding.ActivityMainBinding
-import com.example.neocompany_task.ui.data.model.FruitModel
-import com.example.neocompany_task.ui.data.model.ImageItem
-import com.example.neocompany_task.ui.domain.view.adapter.FruitAdapter
-import com.example.neocompany_task.ui.domain.view.adapter.ImageAdapter
-import com.example.neocompany_task.ui.domain.view.dialog.ModalBottomSheetDialog
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.neocompany_task.theme.JetPackComposeHiltMvvmDemoTheme
+import com.example.neocompany_task.ui.domain.view.mainscreen.mainScreen
 import com.example.neocompany_task.ui.domain.viewmodel.MainViewModel
-import com.example.neocompany_task.util.Utility
 import com.example.neocompany_task.util.Utility.Companion.fruitList
 import com.example.neocompany_task.util.Utility.Companion.setDataList
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.Locale
+
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
+    @SuppressLint("CoroutineCreationDuringComposition")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContent {
+            JetPackComposeHiltMvvmDemoTheme {
+                setDataList()
+                val mainViewModel: MainViewModel = hiltViewModel()
+                lifecycleScope.launch {
+                    mainViewModel.insert(fruitList)
+                }
+                App()
+            }
+        }
+    }
+}
 
 
+
+@Composable
+fun App() {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        mainScreen()
+    }
+
+}
+
+
+/*
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -147,50 +185,7 @@ class MainActivity : BaseActivity() {
     }
 
 
-    private fun setViewPager() {
-        val imageList = ArrayList<ImageItem>()
 
-        for (i in 0 until 5) {
-            imageList.add(
-                ImageItem(
-                    R.drawable.fruits
-                )
-            )
-        }
-        val imageAdapter = ImageAdapter()
-        binding.viewPager2.adapter = imageAdapter
-        imageAdapter.submitList(imageList)
-
-        val slideDotLL = findViewById<LinearLayout>(R.id.slideDotLL)
-        val dotsImage = Array(imageList.size) { ImageView(this) }
-
-        dotsImage.forEach {
-            it.setImageResource(
-                R.drawable.non_active_dot
-            )
-            slideDotLL.addView(it, params)
-        }
-
-        // default first dot selected
-        dotsImage[0].setImageResource(R.drawable.active_dot)
-
-        pageChangeListener = object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                dotsImage.mapIndexed { index, imageView ->
-                    if (position == index) {
-                        imageView.setImageResource(
-                            R.drawable.active_dot
-                        )
-                    } else {
-                        imageView.setImageResource(R.drawable.non_active_dot)
-                    }
-                }
-                super.onPageSelected(position)
-            }
-        }
-        binding.viewPager2.registerOnPageChangeCallback(pageChangeListener)
-
-    }
 
 
     private fun setupModalButtons() {
@@ -203,3 +198,4 @@ class MainActivity : BaseActivity() {
 
 
 }
+*/

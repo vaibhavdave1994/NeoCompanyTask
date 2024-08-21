@@ -90,6 +90,7 @@ dependencies {
     implementation("com.jakewharton.timber:timber:4.7.1")
     // Hilt DI
     implementation("com.google.dagger:hilt-android:2.48")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("com.google.dagger:hilt-compiler:2.48")
     //  Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
@@ -114,6 +115,9 @@ dependencies {
     //Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    //viewpager and indicator
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.30.1")
+    implementation("androidx.compose.foundation:foundation:1.6.8")
 
 
 }
